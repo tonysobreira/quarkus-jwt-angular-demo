@@ -12,7 +12,7 @@ public class UserService {
 
 	public UserService() {
 		// Usuários de exemplo (em produção, use banco de dados e hash de senhas)
-		users.put("admin", new User("admin", "admin123", Set.of("ADMIN")));
+		users.put("admin", new User("admin", "admin123", Set.of("USER", "ADMIN")));
 		users.put("user", new User("user", "user123", Set.of("USER")));
 	}
 

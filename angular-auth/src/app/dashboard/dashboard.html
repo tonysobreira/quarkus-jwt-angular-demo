@@ -12,6 +12,16 @@
 
   <main>
     <div class="content-card">
+      <h2>Conteúdo Não Protegido</h2>
+      @if (isLoading()) {
+      <div class="loading">Carregando dados não protegidos...</div>
+      } @if (helloData(); as hello) {
+      <div class="data-block">
+        <h2>Hello</h2>
+        <pre>{{ hello | json }}</pre>
+      </div>
+      }
+
       <h2>Conteúdo Protegido</h2>
 
       @if (isLoading()) {

@@ -10,8 +10,9 @@ import java.util.Set;
 public class TokenService {
 
 	public String generateToken(String username, Set<String> roles) {
+		// Usa a chave privada configurada
 		return Jwt.issuer("https://exemplo.com/issuer").upn(username).groups(roles)
-				.claim(Claims.full_name.name(), username).sign(); // Usa a chave privada configurada
+				.claim(Claims.full_name.name(), username).sign();
 	}
 
 }

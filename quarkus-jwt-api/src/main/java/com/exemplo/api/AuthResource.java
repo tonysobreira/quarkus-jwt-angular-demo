@@ -33,7 +33,9 @@ public class AuthResource {
 		String password = credentials.get("password");
 
 		User user = userService.findByUsername(username);
-		if (user != null && user.getPassword().equals(password)) { // Em produção, use hashing!
+
+		// Em produção, use hashing!
+		if (user != null && user.getPassword().equals(password)) {
 			String token = tokenService.generateToken(username, user.getRoles());
 			return Response.ok(Map.of(TOKEN_KEY, token)).build();
 		} else {

@@ -23,6 +23,7 @@ export class DashboardComponent implements OnDestroy {
   userRoles = signal<string[]>([]);
 
   // Dados protegidos como signals
+  helloData = signal<any | null>(null);
   secretData = signal<any | null>(null);
   adminData = signal<any | null>(null);
 
@@ -55,8 +56,24 @@ export class DashboardComponent implements OnDestroy {
   loadProtectedData() {
     this.isLoading.set(true);
     this.errorMessage.set('');
+    this.helloData.set(null);
     this.secretData.set(null);
     this.adminData.set(null);
+
+    // Hello
+    this.subscriptions.add(
+      this.apiService.getHelloData().subscribe({
+        next: (data) => {
+          this.helloData.set(data);
+          this.isLoading.set(false);
+        },
+        error: (err) => {
+          this.errorMessage.set('Falha ao carregar hello');
+          this.isLoading.set(false);
+          console.error(err);
+        },
+      })
+    );
 
     // Dados protegidos normais
     this.subscriptions.add(
