@@ -1,0 +1,40 @@
+<!-- dashboard.component.html -->
+<div class="dashboard-container">
+  <header>
+    <h1>Bem-vindo, {{ userName() }}!</h1>
+
+    <div class="user-info">
+      <span class="roles"> Roles: {{ userRoles().join(', ') || 'Nenhum' }} </span>
+
+      <button class="logout-btn" (click)="logout()">Sair</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="content-card">
+      <h2>Conteúdo Protegido</h2>
+
+      @if (isLoading()) {
+      <div class="loading">Carregando dados protegidos...</div>
+      } @if (secretData(); as data) {
+      <div class="data-block">
+        <h3>Dados Secretos (usuários autenticados)</h3>
+        <pre>{{ data | json }}</pre>
+      </div>
+      } @if (adminData(); as admin) {
+      <div class="data-block admin">
+        <h3>Relatórios Admin</h3>
+        <pre>{{ admin | json }}</pre>
+      </div>
+      } @if (errorMessage(); as error) {
+      <div class="error-message">
+        {{ error }}
+      </div>
+      }
+
+      <button class="refresh-btn" (click)="loadProtectedData()" [disabled]="isLoading()">
+        Atualizar Dados
+      </button>
+    </div>
+  </main>
+</div>
